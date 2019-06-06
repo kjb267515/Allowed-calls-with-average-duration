@@ -1,0 +1,2098 @@
+| dbxquery 
+maxrows=500000
+connection=Academy
+query="
+SELECT 'dw_academy' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_aicu
+query="
+SELECT 'AICU' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_archboldmedicalcenter
+query="
+SELECT 'Archbold Medical Center' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_academy
+query="
+SELECT 'dw_academy' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_assetmarketing
+query="
+SELECT 'Asset Marketing' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_bemis
+query="
+SELECT 'Bemis' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_bluefl
+query="
+SELECT 'Blue Cross Blue Shield Florida' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_bocaratonregionalhospital
+query="
+SELECT 'Boca Raton Regional Hospital' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_borough_of_manhattan_cc
+query="
+SELECT 'Borough of Manhattan CC' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_bchosp
+query="
+SELECT 'Boston Children's Hospital' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_chicos
+query="
+SELECT 'Chicos' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_childrens
+query="
+SELECT 'Childrens' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_chofalabama
+query="
+SELECT 'Childrens Hospital of Alabama' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_academy
+query="
+SELECT 'dw_academy' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_christushealth
+query="
+SELECT 'Christus Health' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_bocaraton
+query="
+SELECT 'City of Boca Raton' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_worth
+query="
+SELECT 'City of Fort Worth' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_cityofhouston
+query="
+SELECT 'City of Houston' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_cuyahoga
+query="
+SELECT 'Cuyahoga' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_energytransferpartners
+query="
+SELECT 'Energy Transfer Partners' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_fmglobal
+query="
+SELECT 'FM Global' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_frostbank
+query="
+SELECT 'Frost Bank' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_hca
+query="
+SELECT 'HCA' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_hss
+query="
+SELECT 'HSS' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_hendrickhealth
+query="
+SELECT 'Hendrick Health' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_howard
+query="
+SELECT 'Howard' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_kohls
+query="
+SELECT 'Kohls' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_msufederalcreditunion
+query="
+SELECT 'MSU Federal Credit Union' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_mariettamemorial
+query="
+SELECT 'Marietta Memorial' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_mcafee
+query="
+SELECT 'Mcafee' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_methodist
+query="
+SELECT 'Methodist' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_montc
+query="
+SELECT 'Montgomery 911' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_montcent
+query="
+SELECT 'Montgomery Telecom' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_moodys
+query="
+SELECT 'Moodys' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_rmca
+query="
+SELECT 'Regional Medical Center of Anniston' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_nypd
+query="
+SELECT 'NYPD' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_orangecounty
+query="
+SELECT 'Orange County' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_panorama
+query="
+SELECT 'Panorama' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_parallon
+query="
+SELECT 'Parallon' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_prudential
+query="
+SELECT 'Prudential' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_rushuniversityhospital
+query="
+SELECT 'Rush University Hospital' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_scotland
+query="
+SELECT 'Scotland' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_shepherd
+query="
+SELECT 'Shepherd' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_skylakes
+query="
+SELECT 'Sky Lakes' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_stamford
+query="
+SELECT 'Stamford' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_TTI
+query="
+SELECT 'TTI' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_townofmooresville
+query="
+SELECT 'Town of Mooresville' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_uhs
+query="
+SELECT 'UHS' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_wmusm
+query="
+SELECT 'WMUSM' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
+|append
+[| dbxquery 
+maxrows=500000
+connection=dw_yale_new_haven
+query="
+SELECT 'Yale New Haven Hospital' AS customer,
+       --REPLACE(REPLACE(REPLACE(REPLACE(a.directory_number,'[',''),']',''),'(',''),')','') as directory_number,
+       b.external_number,
+       a.last_name,
+       b.calls,
+       b.total_duration_seconds,
+       b.avg_duration_seconds
+       
+   
+FROM 
+(
+SELECT directory_number, last_name 
+FROM etm_directory
+ORDER BY directory_number
+) a
+INNER JOIN
+(
+SELECT   external_number,
+         count(c.call_oid) as calls,
+         sum(c.dur_answered_sec) as total_duration_seconds,
+         avg(c.dur_answered_sec)::numeric as avg_duration_seconds
+FROM     dw_fk_datawarehouse_nomodel c
+WHERE datekey >= current_date - interval '90 days' AND 
+         datekey < current_date AND 
+         direction = 'INBOUND' AND
+        term_status = 'ALLOWED' AND
+        call_type LIKE 'Voice'
+GROUP BY external_number 
+ORDER BY external_number
+) b ON a.directory_number=b.external_number
+WHERE avg_duration_seconds < 10
+AND calls >= 5
+
+"
+|table customer external_number last_name calls total_duration_seconds avg_duration_seconds
+|sort calls desc
+]
